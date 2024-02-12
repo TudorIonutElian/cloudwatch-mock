@@ -1,4 +1,4 @@
-data "archive_file" "lambda_zip" {
+data "archive_file" "lambda_function_zip" {
   type = "zip"
   source_file = "index.js"
   output_path = "index.zip"
@@ -10,7 +10,7 @@ resource "aws_lambda_function" "cloudwatch_lambda" {
   role = aws_iam_role.cloudwatch_lambda_role.arn
   handler = "index.handler"
   runtime = "nodejs18.x"
-  source_code_hash = data.archive_file.lambda_package.output_base64sha256
+  source_code_hash = data.archive_file.lambda_function_zip.output_base64sha256
 }
 
 resource "aws_iam_role" "cloudwatch_lambda_role" {
