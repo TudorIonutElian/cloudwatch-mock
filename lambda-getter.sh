@@ -1,1 +1,0 @@
-curl -L -o example-lambda.zip https://github.com/TudorIonutElian/example-lambda/archive/refs/heads/main.zip
