@@ -8,3 +8,6 @@ unzip example-lambda.zip -d example-lambda
 mv example-lambda/example-lambda-main/* example-lambda/
 rm -r example-lambda/example-lambda-main
 rm example-lambda.zip
+
+terraform init
+terraform plan
