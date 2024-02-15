@@ -1,6 +1,6 @@
 sudo apt-get install unzip
 sudo apt-get install curl
-sudo apt-get install nodejs
+sudo apt-get -y install nodejs npm
 
 curl -L -o example-lambda.zip https://github.com/TudorIonutElian/example-lambda/archive/refs/heads/main.zip
 
