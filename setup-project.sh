@@ -11,6 +11,7 @@ rm -r example-lambda/example-lambda-main
 rm example-lambda.zip
 
 cd example-lambda
+npm install
 
 
 terraform init
