@@ -27,14 +27,10 @@ resource "aws_iam_role" "cloudwatch_lambda_role" {
         }
       },
       {
-        Effect: "Allow",
-        Action: [
-            "s3:PutObject"
-        ],
-        Resource: [
-            "arn:aws:s3:::${var.cloudwatch_mock_lambda_bucket_name}",
-            "arn:aws:s3:::${var.cloudwatch_mock_lambda_bucket_name}/*"
-        ]
+         Effect:"Allow",
+         Principal:"*",
+         Action:"s3:PutObject",
+         Resource:"arn:aws:s3:::${var.cloudwatch_mock_lambda_bucket_name}/*"
       }
     ]
   })
