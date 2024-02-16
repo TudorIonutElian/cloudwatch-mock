@@ -32,8 +32,8 @@ resource "aws_iam_role" "cloudwatch_lambda_role" {
             "s3:PutObject"
         ],
         "Resource": [
-            "arn:aws:s3:::my-bucket",
-            "arn:aws:s3:::my-bucket/*"
+            "arn:aws:s3:::${var.cloudwatch_mock_lambda_bucket_name}",
+            "arn:aws:s3:::${var.cloudwatch_mock_lambda_bucket_name}/*"
         ]
       }
     ]
