@@ -17,13 +17,25 @@ resource "aws_iam_role" "cloudwatch_lambda_role" {
   name = "lambda-role"
 
   assume_role_policy = jsonencode({
-        Version = "2012-10-17",
-        Statement = [{
-            Action = "sts:AssumeRole",
-            Effect = "Allow",
-            Principal = {
-                Service = "lambda.amazonaws.com"
-            }
-        }]
-    })
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Action = "sts:AssumeRole",
+        Effect = "Allow",
+        Principal = {
+          Service = "lambda.amazonaws.com"
+        }
+      },
+      {
+        "Effect": "Allow",
+        "Action": [
+            "s3:PutObject"
+        ],
+        "Resource": [
+            "arn:aws:s3:::my-bucket",
+            "arn:aws:s3:::my-bucket/*"
+        ]
+      }
+    ]
+  })
 }
