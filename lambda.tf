@@ -25,12 +25,28 @@ resource "aws_iam_role" "cloudwatch_lambda_role" {
         Principal = {
           Service = "lambda.amazonaws.com"
         }
-      },
+      }
+    ]
+  })
+}
+
+resource "aws_iam_policy" "cloudwatch_lambda_role_s3_handler_policy" {
+  name        = "cloudwatch_lambda_role_s3_handler_policy_policy"
+  path        = "/"
+  description = "A policy for Databricks IAM Role"
+
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
       {
-         Effect:"Allow",
-         Principal:"*",
-         Action:"s3:PutObject",
-         Resource:"arn:aws:s3:::${var.cloudwatch_mock_lambda_bucket_name}/*"
+        Effect = "Allow",
+        Action = [
+          "s3:GetObject",
+          "s3:PutObject"
+        ],
+        Resource = [
+          "arn:aws:s3:::${var.cloudwatch_mock_lambda_bucket_name}/*"
+        ]
       }
     ]
   })
