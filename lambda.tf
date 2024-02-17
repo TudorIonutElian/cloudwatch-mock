@@ -1,8 +1,18 @@
+/**
+ * This file is used to create a lambda function and attach the role to it.
+ * The lambda function is created using the zip file of the lambda function code.
+ * The role is created and attached to the lambda function.
+ * The role has a policy attached to it which allows the lambda function to access the S3 bucket.
+ */
 data "archive_file" "lambda_function_zip" {
   type = "zip"
   source_dir = "example-lambda"
   output_path = "index.zip"
 }
+
+/*******************************************************
+ * This resource is used to create the lambda function.
+*******************************************************/
 
 resource "aws_lambda_function" "cloudwatch_lambda" {
   filename = "index.zip"
@@ -11,48 +21,4 @@ resource "aws_lambda_function" "cloudwatch_lambda" {
   handler = "index.handler"
   runtime = "nodejs18.x"
   source_code_hash = data.archive_file.lambda_function_zip.output_base64sha256
-}
-
-resource "aws_iam_role" "cloudwatch_lambda_role" {
-  name = "lambda-role"
-
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17",
-    Statement = [
-      {
-        Action = "sts:AssumeRole",
-        Effect = "Allow",
-        Principal = {
-          Service = "lambda.amazonaws.com"
-        }
-      }
-    ]
-  })
-}
-
-resource "aws_iam_policy" "cloudwatch_lambda_role_s3_handler_policy" {
-  name        = "cloudwatch_lambda_role_s3_handler_policy_policy"
-  path        = "/"
-  description = "A policy for Databricks IAM Role"
-
-  policy = jsonencode({
-    Version = "2012-10-17",
-    Statement = [
-      {
-        Effect = "Allow",
-        Action = [
-          "s3:GetObject",
-          "s3:PutObject"
-        ],
-        Resource = [
-          "arn:aws:s3:::${var.cloudwatch_mock_lambda_bucket_name}/*"
-        ]
-      }
-    ]
-  })
-}
-
-resource "aws_iam_role_policy_attachment" "cloudwatch_lambda_role_s3_handler_policy_attachment" {
-  role       = aws_iam_role.cloudwatch_lambda_role.name
-  policy_arn = aws_iam_policy.cloudwatch_lambda_role_s3_handler_policy.arn
 }

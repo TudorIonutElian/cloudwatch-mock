@@ -1,4 +1,7 @@
-# Adding terraform required providers block
+/**********************************************************
+  # Configure the AWS Provider
+  # Add configuration to authorisation keys
+*/
 terraform {
   required_providers {
     aws = {
