@@ -40,7 +40,6 @@ function getWriteLogsLambda {
 }
 
 function terraform_init {
-    cd ../
     terraform init
     terraform plan
 }
