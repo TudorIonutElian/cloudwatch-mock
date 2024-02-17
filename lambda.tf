@@ -14,10 +14,10 @@ data "archive_file" "lambda_function_zip" {
  * This resource is used to create the lambda function.
 *******************************************************/
 
-resource "aws_lambda_function" "cloudwatch_lambda" {
+resource "aws_lambda_function" "write_payload_func" {
   filename = "index.zip"
   function_name = "cloudWatchLambda"
-  role = aws_iam_role.cloudwatch_lambda_role.arn
+  role = aws_iam_role.write_payload_func_role.arn
   handler = "index.handler"
   runtime = "nodejs18.x"
   source_code_hash = data.archive_file.lambda_function_zip.output_base64sha256

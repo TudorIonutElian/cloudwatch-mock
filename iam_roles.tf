@@ -1,7 +1,7 @@
 /***********************************************************************
  * This resource is used to create the IAM role for the lambda function.
  ***********************************************************************/
-resource "aws_iam_role" "cloudwatch_lambda_role" {
+resource "aws_iam_role" "write_payload_func_role" {
   name = "lambda-role"
 
   assume_role_policy = jsonencode({

@@ -4,7 +4,7 @@
 resource "aws_lambda_permission" "apigw_lambda" {
   statement_id = "AllowExecutionFromAPIGateway"
   action = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.cloudwatch_lambda.function_name
+  function_name = aws_lambda_function.write_payload_func.function_name
   principal = "apigateway.amazonaws.com"
 
   source_arn = "${aws_api_gateway_rest_api.cloudwatch_mock_api.execution_arn}/*/*/*"
@@ -14,8 +14,8 @@ resource "aws_lambda_permission" "apigw_lambda" {
 /***********************************************************************
  * This resource is used to DEFINE the policy TO GET AND PUT OBJECTS
  ***********************************************************************/
-resource "aws_iam_policy" "cloudwatch_lambda_role_s3_handler_policy" {
-  name        = "cloudwatch_lambda_role_s3_handler_policy_policy"
+resource "aws_iam_policy" "write_payload_func_role_s3_handler_policy" {
+  name        = "write_payload_func_role_s3_handler_policy_policy"
   path        = "/"
   description = "A policy for Databricks IAM Role"
 
