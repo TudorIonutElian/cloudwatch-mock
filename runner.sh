@@ -7,10 +7,10 @@ source ./scripts/functions.sh
 initial_setup
 
 # Call the prepare_lambda function
-prepare_lambda_write_payload_function
+getWritePayloadLambda
 
 # Call the prepare_lambda_write_logs_function
-prepare_lambda_write_logs_function
+getWriteLogsLambda
 
 # Call the terraform_init function
 terraform_init

@@ -7,13 +7,13 @@
 data "archive_file" "write_payload_func_zip" {
   type        = "zip"
   source_dir  = "write-payload-func"
-  output_path = "write_payload_func_zip.zip"
+  output_path = "write_payload_func.zip"
 }
 
 data "archive_file" "write_logs_func_zip" {
   type        = "zip"
   source_dir  = "write-logs-func"
-  output_path = "write_logs_func_zip.zip"
+  output_path = "write_logs_func.zip"
 }
 
 /*******************************************************
@@ -22,7 +22,7 @@ data "archive_file" "write_logs_func_zip" {
 *******************************************************/
 
 resource "aws_lambda_function" "write_payload_func" {
-  filename         = "index.zip"
+  filename         = "write_payload_func.zip"
   function_name    = "cloudWatchLambda"
   role             = aws_iam_role.write_payload_func_role.arn
   handler          = "index.handler"

@@ -6,7 +6,7 @@ function initial_setup {
     sudo apt-get -y install nodejs npm
 }
 
-function prepare_lambda_write_payload_function {
+function getWritePayloadLambda {
 
     if [ -d "write-payload-func" ]; then rm -Rf write-payload-func; fi
 
@@ -22,7 +22,7 @@ function prepare_lambda_write_payload_function {
     npm install
 }
 
-function prepare_lambda_write_logs_function {
+function getWriteLogsLambda {
     if [ -d "write-logs-func" ]; then rm -Rf write-logs-func; fi
 
     curl -L -o write-logs-func.zip https://github.com/TudorIonutElian/write-logs-func/archive/refs/heads/main.zip
