@@ -1,5 +1,5 @@
 resource "aws_sns_topic" "custom_cloudwatch_sns_topic" {
-  name              = "custom-cloudwatch-sns-topic"
+  name = "custom-cloudwatch-sns-topic"
 }
 
 
