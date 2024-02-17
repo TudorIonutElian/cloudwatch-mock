@@ -20,7 +20,7 @@ resource "aws_db_instance" "custom_cloudwatch_database" {
 }
 
 data "local_file" "data_setup_script" {
-  filename = "${path.module}/data/rds/setup/rds_initial_setup.sql"
+  filename = "./data/rds/setup/rds_initial_setup.sql"
 }
 
 resource "null_resource" "db_setup" {

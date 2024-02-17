@@ -2,7 +2,7 @@
  * This resource is used to create the IAM role for the lambda function.
  ***********************************************************************/
 resource "aws_iam_role" "write_payload_func_role" {
-  name = "lambda-role"
+  name = "write-payload-lambda-role"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
@@ -22,7 +22,7 @@ resource "aws_iam_role" "write_payload_func_role" {
  * This resource is used to create the IAM role for the lambda function.
  ***********************************************************************/
 resource "aws_iam_role" "write_logs_func_role" {
-  name = "lambda-role"
+  name = "write-logs-lambda-role"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
