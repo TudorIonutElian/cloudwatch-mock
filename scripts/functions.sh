@@ -20,6 +20,7 @@ function getWritePayloadLambda {
 
     cd write-payload-func
     npm install
+    cd ../
 }
 
 function getWriteLogsLambda {
@@ -35,6 +36,7 @@ function getWriteLogsLambda {
 
     cd write-logs-func
     npm install
+    cd ../
 }
 
 function terraform_init {
