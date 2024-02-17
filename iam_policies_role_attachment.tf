@@ -1,6 +1,6 @@
 resource "aws_iam_role_policy_attachment" "lambda_basic" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
-  role = aws_iam_role.write_payload_func_role.name
+  role       = aws_iam_role.write_payload_func_role.name
 }
 
 /***********************************************************************
