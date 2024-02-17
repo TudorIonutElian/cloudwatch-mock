@@ -1,5 +1,5 @@
 resource "aws_db_instance" "custom-cloudwatch-database" {
-  allocated_storage    = 2
+  allocated_storage    = 10
   db_name              = "mydb"
   engine               = "mysql"
   engine_version       = "5.7"
