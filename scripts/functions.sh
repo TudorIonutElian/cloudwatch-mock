@@ -5,15 +5,17 @@ function prepare_lambda {
     sudo apt-get install curl
     sudo apt-get -y install nodejs npm
 
-    curl -L -o example-lambda.zip https://github.com/TudorIonutElian/example-lambda/archive/refs/heads/main.zip
+    if [ -d "write-payload-func" ]; then rm -Rf write-payload-func; fi
 
-    unzip example-lambda.zip -d example-lambda
+    curl -L -o write-payload-func.zip https://github.com/TudorIonutElian/write-payload-func/archive/refs/heads/main.zip
 
-    mv example-lambda/example-lambda-main/* example-lambda/
-    rm -r example-lambda/example-lambda-main
-    rm example-lambda.zip
+    unzip write-payload-func.zip -d write-payload-func
 
-    cd example-lambda
+    mv write-payload-func/write-payload-func-main/* write-payload-func/
+    rm -r write-payload-func/write-payload-func-main
+    rm write-payload-func.zip
+
+    cd write-payload-func
     npm install
 }
 
