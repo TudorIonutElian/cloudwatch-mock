@@ -16,5 +16,5 @@ resource "aws_db_instance" "custom_cloudwatch_database" {
   password             = var.custom_cloudwatch_database.password
   parameter_group_name = "default.mysql5.7"
   skip_final_snapshot  = true
-  availability_zone    = "eu-central-1a"
+  publicly_accessible  = true
 }
