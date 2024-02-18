@@ -23,3 +23,24 @@ resource "aws_lambda_function" "write_payload_func" {
   runtime          = "nodejs18.x"
   source_code_hash = data.archive_file.write_payload_func_zip.output_base64sha256
 }
+
+data "aws_iam_policy_document" "AWSLambdaTrustPolicy" {
+  statement {
+    actions    = ["sts:AssumeRole"]
+    effect     = "Allow"
+    principals {
+      type        = "Service"
+      identifiers = ["lambda.amazonaws.com"]
+    }
+  }
+}
+
+resource "aws_iam_role" "write_payload_func_role" {
+  name               = "write-payload-func-role"
+  assume_role_policy = "${data.aws_iam_policy_document.AWSLambdaTrustPolicy.json}"
+}
+
+resource "aws_iam_role_policy_attachment" "write_payload_terraform_lambda_policy" {
+  role       = "${aws_iam_role.write_payload_func_role.name}"
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+}

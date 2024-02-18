@@ -29,3 +29,24 @@ resource "aws_lambda_function" "write_logs_func" {
     }
   }
 }
+
+data "aws_iam_policy_document" "WriteLogsAWSLambdaTrustPolicy" {
+  statement {
+    actions    = ["sts:AssumeRole"]
+    effect     = "Allow"
+    principals {
+      type        = "Service"
+      identifiers = ["lambda.amazonaws.com"]
+    }
+  }
+}
+
+resource "aws_iam_role" "write_logs_func_role" {
+  name               = "write-logs-func-role"
+  assume_role_policy = "${data.aws_iam_policy_document.WriteLogsAWSLambdaTrustPolicy.json}"
+}
+
+resource "aws_iam_role_policy_attachment" "write_logs_terraform_lambda_policy" {
+  role       = "${aws_iam_role.write_logs_func_role.name}"
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+}
