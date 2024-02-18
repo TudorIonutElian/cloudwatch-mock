@@ -50,3 +50,35 @@ resource "aws_iam_role_policy_attachment" "write_logs_terraform_lambda_policy" {
   role       = "${aws_iam_role.write_logs_func_role.name}"
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 }
+
+/***********************************************************************
+ * This resource is used to DEFINE the policy TO GET AND PUT OBJECTS
+ ***********************************************************************/
+resource "aws_iam_policy" "write_logs_func_role_s3_handler_policy" {
+  name        = "write_payload_func_role_s3_handler_policy"
+  path        = "/"
+  description = "A policy for getting objects from s3 bucket"
+
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect = "Allow",
+        Action = [
+          "s3:GetObject"
+        ],
+        Resource = [
+          "arn:aws:s3:::${var.cloudwatch_mock_lambda_bucket_name}/*"
+        ]
+      }
+    ]
+  })
+}
+
+/***********************************************************************
+ * This resource is used to ATTACH the policy to the IAM role
+ ***********************************************************************/
+resource "aws_iam_role_policy_attachment" "write_logs_func_role_s3_handler_policy_attachment" {
+  role       = aws_iam_role.write_logs_func_role.name
+  policy_arn = aws_iam_policy.write_logs_func_role_s3_handler_policy.arn
+}
