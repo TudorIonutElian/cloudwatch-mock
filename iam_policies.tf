@@ -39,7 +39,7 @@ resource "aws_iam_policy" "write_payload_func_role_s3_handler_policy" {
 /***********************************************************************
  * This resource is used to DEFINE the policy TO INVOKE BY SNS TOPIC EVENT
  ***********************************************************************/
-resource "aws_iam_policy" "sns_topic_policy" {
+resource "aws_iam_policy" "write_logs_invoker_sns_topic_policy" {
   name        = "sns_topic_policy"
   path        = "/"
   description = "A policy for invoking Lambda function by SNS topic"
