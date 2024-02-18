@@ -17,7 +17,7 @@ data "archive_file" "write_payload_func_zip" {
 
 resource "aws_lambda_function" "write_payload_func" {
   filename         = "write_payload_func.zip"
-  function_name    = "cloudWatchLambda"
+  function_name    = "write-payload-func"
   role             = aws_iam_role.write_payload_func_role.arn
   handler          = "index.handler"
   runtime          = "nodejs18.x"
