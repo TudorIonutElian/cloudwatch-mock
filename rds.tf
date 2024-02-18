@@ -18,14 +18,3 @@ resource "aws_db_instance" "custom_cloudwatch_database" {
   skip_final_snapshot  = true
   availability_zone    = "eu-central-1a"
 }
-
-data "local_file" "data_setup_script" {
-  filename = "${path.module}/rds_initial_setup.sql"
-}
-
-resource "null_resource" "db_setup" {
-  depends_on = [aws_db_instance.custom_cloudwatch_database]
-  provisioner "local-exec" {
-    command = "mysql --host=${aws_db_instance.custom_cloudwatch_database.address} --port=${var.custom_cloudwatch_database.port} --user=${var.custom_cloudwatch_database.username} --password=${var.custom_cloudwatch_database.password} < rds_initial_setup.sql"
-  }
-}
