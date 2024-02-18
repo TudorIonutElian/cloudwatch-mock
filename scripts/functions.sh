@@ -6,7 +6,7 @@ function initial_setup {
     sudo apt-get -y install nodejs npm
 }
 
-function getWritePayloadLambda {
+function loadWritePayloadLambda {
 
     if [ -d "write-payload-func" ]; then rm -Rf write-payload-func; fi
 
@@ -23,7 +23,7 @@ function getWritePayloadLambda {
     cd ../
 }
 
-function getWriteLogsLambda {
+function loadWriteLogsLambda {
     if [ -d "write-logs-func" ]; then rm -Rf write-logs-func; fi
 
     curl -L -o write-logs-func.zip https://github.com/TudorIonutElian/write-logs-func/archive/refs/heads/main.zip
@@ -35,6 +35,22 @@ function getWriteLogsLambda {
     rm write-logs-func.zip
 
     cd write-logs-func
+    npm install
+    cd ../
+}
+
+function loadGegLogsLambda {
+    if [ -d "get-logs-func" ]; then rm -Rf get-logs-func; fi
+
+    curl -L -o get-logs-func.zip https://github.com/TudorIonutElian/get-logs-func/archive/refs/heads/main.zip
+
+    unzip get-logs-func.zip -d get-logs-func
+
+    mv get-logs-func/get-logs-func-main/* get-logs-func/
+    rm -r get-logs-func/get-logs-func-main
+    rm get-logs-func.zip
+
+    cd get-logs-func
     npm install
     cd ../
 }

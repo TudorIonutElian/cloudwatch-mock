@@ -10,12 +10,6 @@ data "archive_file" "write_payload_func_zip" {
   output_path = "write_payload_func.zip"
 }
 
-data "archive_file" "write_logs_func_zip" {
-  type        = "zip"
-  source_dir  = "write-logs-func"
-  output_path = "write_logs_func.zip"
-}
-
 /*******************************************************
  * This resource is used to create the lambda function.
         for writing the payload to the S3 bucket.
@@ -28,24 +22,4 @@ resource "aws_lambda_function" "write_payload_func" {
   handler          = "index.handler"
   runtime          = "nodejs18.x"
   source_code_hash = data.archive_file.write_payload_func_zip.output_base64sha256
-}
-
-
-/*******************************************************
- * This resource is used to create the lambda function.
-*******************************************************/
-
-resource "aws_lambda_function" "write_logs_func" {
-  filename         = "write_logs_func.zip"
-  function_name    = "write-logs-func"
-  role             = aws_iam_role.write_logs_func_role.arn
-  handler          = "index.handler"
-  runtime          = "nodejs18.x"
-  source_code_hash = data.archive_file.write_logs_func_zip.output_base64sha256
-
-  environment {
-    variables = {
-      rds_instance_endpoint = aws_db_instance.custom_cloudwatch_database.endpoint
-    }
-  }
 }
