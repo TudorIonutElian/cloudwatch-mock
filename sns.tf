@@ -20,3 +20,12 @@ resource "aws_sns_topic_policy" "policy" {
   }
   POLICY
 }
+
+/***********************************************************************
+ * This resource is used to subscribe a lambda to the SNS topic subscription
+ ***********************************************************************/
+resource "aws_sns_topic_subscription" "write_logs_sns_subscription" {
+  topic_arn = aws_sns_topic.custom_cloudwatch_sns_topic.arn
+  protocol  = "lambda"
+  endpoint  = aws_lambda_function.write_logs_func.arn
+}
