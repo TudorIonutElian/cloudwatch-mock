@@ -29,3 +29,11 @@ resource "aws_sns_topic_subscription" "write_logs_sns_subscription" {
   protocol  = "lambda"
   endpoint  = aws_lambda_function.write_logs_func.arn
 }
+
+resource "aws_lambda_permission" "sns_invoke_lambda_permission" {
+  statement_id  = "AllowExecutionFromSNS"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.write_logs_func.function_name
+  principal     = "sns.amazonaws.com"
+  source_arn    = aws_sns_topic.custom_cloudwatch_sns_topic.arn
+}
