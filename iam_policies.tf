@@ -35,3 +35,32 @@ resource "aws_iam_policy" "write_payload_func_role_s3_handler_policy" {
     ]
   })
 }
+
+/***********************************************************************
+ * This resource is used to DEFINE the policy TO INVOKE BY SNS TOPIC EVENT
+ ***********************************************************************/
+resource "aws_iam_policy" "sns_topic_policy" {
+  name        = "sns_topic_policy"
+  path        = "/"
+  description = "A policy for invoking Lambda function by SNS topic"
+
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect = "Allow",
+        Action = [
+          "lambda:InvokeFunction"
+        ],
+        Resource = [
+          aws_lambda_function.write_logs_func.arn
+        ],
+        Condition = {
+          ArnLike = {
+            "aws:SourceArn" = "arn:aws:sns:*:*:${aws_sns_topic.custom_cloudwatch_sns_topic.name}"
+          }
+        }
+      }
+    ]
+  })
+}
