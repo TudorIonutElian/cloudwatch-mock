@@ -8,7 +8,7 @@
 data "archive_file" "get_logs_func_zip" {
   type        = "zip"
   source_dir  = "get-logs-func"
-  output_path = "get.zip"
+  output_path = "get_logs_func.zip"
 }
 
 /*******************************************************
