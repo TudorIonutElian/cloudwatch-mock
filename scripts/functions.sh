@@ -39,6 +39,22 @@ function getWriteLogsLambda {
     cd ../
 }
 
+function getGegLogsLambda {
+    if [ -d "get-logs-func" ]; then rm -Rf get-logs-func; fi
+
+    curl -L -o get-logs-func.zip https://github.com/TudorIonutElian/get-logs-func/archive/refs/heads/main.zip
+
+    unzip get-logs-func.zip -d get-logs-func
+
+    mv get-logs-func/get-logs-func-main/* get-logs-func/
+    rm -r get-logs-func/get-logs-func-main
+    rm get-logs-func.zip
+
+    cd get-logs-func
+    npm install
+    cd ../
+}
+
 function terraform_init {
     terraform init
     terraform plan
