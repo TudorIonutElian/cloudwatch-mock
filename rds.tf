@@ -26,6 +26,6 @@ data "local_file" "data_setup_script" {
 resource "null_resource" "db_setup" {
   depends_on = [aws_db_instance.custom_cloudwatch_database]
   provisioner "local-exec" {
-    command = "mysql --host=${aws_db_instance.custom_cloudwatch_database.address} --port=${var.custom_cloudwatch_database.port} --user=${var.custom_cloudwatch_database.username} --password=${var.custom_cloudwatch_database.password} < ${data.local_file.data_setup_script.content}"
+    command = "mysql --host=${aws_db_instance.custom_cloudwatch_database.address} --port=${var.custom_cloudwatch_database.port} --user=${var.custom_cloudwatch_database.username} --password=${var.custom_cloudwatch_database.password} < ${path.module}/rds_initial_setup.sql}"
   }
 }
