@@ -1,16 +1,3 @@
-resource "aws_iam_role_policy_attachment" "lambda_basic_execution_payload" {
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
-  role       = aws_iam_role.write_payload_func_role.name
-}
-
-/***********************************************************************
- * This resource is used to ATTACH the basic role to the write logs function
- ***********************************************************************/
-resource "aws_iam_role_policy_attachment" "lambda_basic_execution_logs" {
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
-  role       = aws_iam_role.write_logs_func_role.name
-}
-
 /***********************************************************************
  * This resource is used to ATTACH the policy to the IAM role
  ***********************************************************************/
