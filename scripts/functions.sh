@@ -39,7 +39,7 @@ function loadWriteLogsLambda {
     cd ../
 }
 
-function loadGegLogsLambda {
+function loadGetLogsLambda {
     if [ -d "get-logs-func" ]; then rm -Rf get-logs-func; fi
 
     curl -L -o get-logs-func.zip https://github.com/TudorIonutElian/get-logs-func/archive/refs/heads/main.zip
