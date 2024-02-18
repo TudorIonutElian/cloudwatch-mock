@@ -4,12 +4,13 @@ function initial_setup {
     sudo apt-get install unzip
     sudo apt-get install curl
     sudo apt-get -y install nodejs npm
+
+    if [ -d "write-payload-func" ]; then rm -Rf write-payload-func; fi
+    if [ -d "write-logs-func" ]; then rm -Rf write-logs-func; fi
+    if [ -d "get-logs-func" ]; then rm -Rf get-logs-func; fi
 }
 
 function loadWritePayloadLambda {
-
-    if [ -d "write-payload-func" ]; then rm -Rf write-payload-func; fi
-
     curl -L -o write-payload-func.zip https://github.com/TudorIonutElian/write-payload-func/archive/refs/heads/main.zip
 
     unzip write-payload-func.zip -d write-payload-func
@@ -24,8 +25,6 @@ function loadWritePayloadLambda {
 }
 
 function loadWriteLogsLambda {
-    if [ -d "write-logs-func" ]; then rm -Rf write-logs-func; fi
-
     curl -L -o write-logs-func.zip https://github.com/TudorIonutElian/write-logs-func/archive/refs/heads/main.zip
 
     unzip write-logs-func.zip -d write-logs-func
@@ -40,8 +39,6 @@ function loadWriteLogsLambda {
 }
 
 function loadGetLogsLambda {
-    if [ -d "get-logs-func" ]; then rm -Rf get-logs-func; fi
-
     curl -L -o get-logs-func.zip https://github.com/TudorIonutElian/get-logs-func/archive/refs/heads/main.zip
 
     unzip get-logs-func.zip -d get-logs-func
