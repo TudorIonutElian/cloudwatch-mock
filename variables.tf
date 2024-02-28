@@ -11,7 +11,8 @@ variable "custom_cloudwatch_database" {
   type = object({
     username = string
     password = string
-    port : number
+    port : number,
+    database_name = string
   })
 
   default = {
