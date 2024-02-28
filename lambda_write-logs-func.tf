@@ -27,7 +27,8 @@ resource "aws_lambda_function" "write_logs_func" {
     variables = {
       rds_instance_endpoint = aws_db_instance.custom_cloudwatch_database.address,
       rds_instance_username = var.custom_cloudwatch_database.username,
-      rds_instance_password = var.custom_cloudwatch_database.password
+      rds_instance_password = var.custom_cloudwatch_database.password,
+      rds_instance_database_name = var.custom_cloudwatch_database.database_name
     }
   }
 }

@@ -17,6 +17,7 @@ variable "custom_cloudwatch_database" {
   default = {
     username = "example_username"
     password = "example_password"
+    database_name = "cloudwatch_logs"
     port : 3306
   }
 
