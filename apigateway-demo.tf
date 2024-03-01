@@ -159,5 +159,5 @@ resource "aws_api_gateway_deployment" "deployment_logs" {
   ]
 
   rest_api_id = aws_api_gateway_rest_api.cloudwatch_mock_api.id
-  stage_name  = "development"
+  stage_name  = "development-logs"
 }
