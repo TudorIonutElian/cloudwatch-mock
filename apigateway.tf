@@ -114,7 +114,7 @@ resource "aws_api_gateway_integration_response" "proxy" {
 resource "aws_api_gateway_integration_response" "proxy_integration_response" {
   rest_api_id = aws_api_gateway_rest_api.cloudwatch_mock_api.id
   resource_id = aws_api_gateway_resource.logs.id
-  http_method = aws_api_gateway_method.proxy_logs_response.http_method
+  http_method = aws_api_gateway_method.proxy_logs.http_method
   status_code = aws_api_gateway_method_response.proxy_logs_response.status_code
 
   response_parameters = {
