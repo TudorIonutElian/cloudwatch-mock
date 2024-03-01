@@ -16,7 +16,7 @@ resource "aws_lambda_permission" "apigw_lambda_get_logs" {
   function_name = aws_lambda_function.get_logs_func.function_name
   principal     = "apigateway.amazonaws.com"
 
-  source_arn = "${aws_api_gateway_rest_api.cloudwatch_mock_api.execution_arn}/*/*/*"
+  source_arn = "${aws_api_gateway_rest_api.get_logs_api.execution_arn}/*/*/*"
 }
 
 
