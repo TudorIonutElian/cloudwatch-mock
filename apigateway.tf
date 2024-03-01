@@ -96,7 +96,7 @@ resource "aws_api_gateway_method" "proxy_logs" {
 /**********************************************************
 *** # Add lambda integration
 **********************************************************/
-resource "aws_api_gateway_integration" "lambda_integration" {
+resource "aws_api_gateway_integration" "lambda_integration_logs" {
   rest_api_id             = aws_api_gateway_rest_api.cloudwatch_mock_api.id
   resource_id             = aws_api_gateway_resource.logs.id
   http_method             = aws_api_gateway_method.proxy_logs.http_method
@@ -132,7 +132,7 @@ resource "aws_api_gateway_integration_response" "proxy_logs" {
 
   depends_on = [
     aws_api_gateway_method.proxy_logs,
-    aws_api_gateway_integration.lambda_integration
+    aws_api_gateway_integration.lambda_integration_logs
   ]
 }
 
