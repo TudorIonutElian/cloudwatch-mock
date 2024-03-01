@@ -7,7 +7,8 @@ resource "aws_lambda_permission" "apigw_lambda" {
   function_name = aws_lambda_function.write_payload_func.function_name
   principal     = "apigateway.amazonaws.com"
 
-  source_arn = "${aws_api_gateway_rest_api.cloudwatch_mock_api.execution_arn}/*/*/*"
+  #source_arn = "${aws_api_gateway_rest_api.cloudwatch_mock_api.execution_arn}/*/*/*"
+  source_arn = "${aws_api_gateway_rest_api.cloudwatch_mock_api.execution_arn}/*/${aws_api_gateway_method.proxy_aws_api_gateway_method_logs.http_method}${aws_api_gateway_resource.logs_resource.path}"
 }
 
 resource "aws_lambda_permission" "apigw_lambda_logs" {
