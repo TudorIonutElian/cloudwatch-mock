@@ -11,7 +11,7 @@ output "API_DEMO_PATH_METHOD" {
  ****************************************************/
 output "API_LOGS_PATH_METHOD" {
   description = "API Gateway URL to access the logs"
-  value       = "https://${aws_api_gateway_rest_api.cloudwatch_mock_api.id}.execute-api.eu-central-1.amazonaws.com/${aws_api_gateway_deployment.deployment.stage_name}/${aws_api_gateway_resource.logs.path_part}"
+  value       = "https://${aws_api_gateway_rest_api.get_logs_api.id}.execute-api.eu-central-1.amazonaws.com/${aws_api_gateway_deployment.deployment.stage_name}/${aws_api_gateway_resource.logs.path_part}"
 }
 
 /****************************************************
