@@ -59,7 +59,7 @@ resource "aws_api_gateway_method_response" "proxy_logs_method_response" {
 resource "aws_api_gateway_integration_response" "proxy_integration_logs_response" {
   rest_api_id = aws_api_gateway_rest_api.get_logs_api.id
   resource_id = aws_api_gateway_resource.logs.id
-  http_method = aws_api_gateway_method.proxy_logs_method_response.http_method
+  http_method = aws_api_gateway_method.proxy_logs.http_method
   status_code = aws_api_gateway_method_response.proxy_logs_method_response.status_code
 
   response_parameters = {
