@@ -78,7 +78,7 @@ resource "aws_api_gateway_integration_response" "proxy_integration_logs_response
 /**********************************************************
 *** # Add lambda integration
 **********************************************************/
-resource "aws_api_gateway_deployment" "deployment" {
+resource "aws_api_gateway_deployment" "deployment_logs" {
   depends_on = [
     aws_api_gateway_integration.lambda_integration_logs,
   ]
