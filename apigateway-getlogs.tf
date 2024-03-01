@@ -39,7 +39,7 @@ resource "aws_api_gateway_integration" "lambda_integration_logs" {
   http_method             = aws_api_gateway_method.proxy_logs.http_method
   integration_http_method = "GET"
   type                    = "AWS"
-  uri                     = aws_lambda_function.write_payload_func.invoke_arn
+  uri                     = aws_lambda_function.get_logs_func.invoke_arn
 }
 
 resource "aws_api_gateway_method_response" "proxy_logs" {
