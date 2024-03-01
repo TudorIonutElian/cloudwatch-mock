@@ -4,7 +4,7 @@
 
 resource "aws_api_gateway_rest_api" "cloudwatch_mock_api" {
   name        = "cloudwatch-mock-api"
-  description = "CloudWatch Demo Mock"
+  description = "CloudWatch demo_resource Mock"
 
   endpoint_configuration {
     types = ["REGIONAL"]
@@ -12,9 +12,9 @@ resource "aws_api_gateway_rest_api" "cloudwatch_mock_api" {
 }
 
 /**********************************************************
-*** # Add first resource to the cloudwatch_mock_api
+*** # Add /demo resource to the API Gateway
 **********************************************************/
-resource "aws_api_gateway_resource" "demo" {
+resource "aws_api_gateway_resource" "demo_resource" {
   rest_api_id = aws_api_gateway_rest_api.cloudwatch_mock_api.id
   parent_id   = aws_api_gateway_rest_api.cloudwatch_mock_api.root_resource_id
   path_part   = "demo"
@@ -22,11 +22,11 @@ resource "aws_api_gateway_resource" "demo" {
 
 
 /**********************************************************
-*** # Add first gateway METHOD
+*** # Add first gateway METHOD - aws_api_gateway_method
 **********************************************************/
-resource "aws_api_gateway_method" "proxy" {
+resource "aws_api_gateway_method" "proxy_aws_api_gateway_method" {
   rest_api_id   = aws_api_gateway_rest_api.cloudwatch_mock_api.id
-  resource_id   = aws_api_gateway_resource.demo.id
+  resource_id   = aws_api_gateway_resource.demo_resource.id
   http_method   = "POST"
   authorization = "NONE"
 }
@@ -34,19 +34,19 @@ resource "aws_api_gateway_method" "proxy" {
 /**********************************************************
 *** # Add lambda integration
 **********************************************************/
-resource "aws_api_gateway_integration" "lambda_integration" {
+resource "aws_api_gateway_integration" "lambda_integration_write_payload_func" {
   rest_api_id             = aws_api_gateway_rest_api.cloudwatch_mock_api.id
-  resource_id             = aws_api_gateway_resource.demo.id
-  http_method             = aws_api_gateway_method.proxy.http_method
+  resource_id             = aws_api_gateway_resource.demo_resource.id
+  http_method             = aws_api_gateway_method.proxy_aws_api_gateway_method.http_method
   integration_http_method = "POST"
   type                    = "AWS"
   uri                     = aws_lambda_function.write_payload_func.invoke_arn
 }
 
-resource "aws_api_gateway_method_response" "proxy" {
+resource "aws_api_gateway_method_response" "proxy_aws_api_gateway_method_response_demo" {
   rest_api_id = aws_api_gateway_rest_api.cloudwatch_mock_api.id
-  resource_id = aws_api_gateway_resource.demo.id
-  http_method = aws_api_gateway_method.proxy.http_method
+  resource_id = aws_api_gateway_resource.demo_resource.id
+  http_method = aws_api_gateway_method.proxy_aws_api_gateway_method.http_method
   status_code = "200"
 
   response_parameters = {
@@ -58,9 +58,9 @@ resource "aws_api_gateway_method_response" "proxy" {
 
 resource "aws_api_gateway_integration_response" "proxy" {
   rest_api_id = aws_api_gateway_rest_api.cloudwatch_mock_api.id
-  resource_id = aws_api_gateway_resource.demo.id
-  http_method = aws_api_gateway_method.proxy.http_method
-  status_code = aws_api_gateway_method_response.proxy.status_code
+  resource_id = aws_api_gateway_resource.demo_resource.id
+  http_method = aws_api_gateway_method.proxy_aws_api_gateway_method.http_method
+  status_code = aws_api_gateway_method_response.proxy_aws_api_gateway_method_response_demo.status_code
 
   response_parameters = {
     "method.response.header.Access-Control-Allow-Headers" = "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
@@ -69,8 +69,8 @@ resource "aws_api_gateway_integration_response" "proxy" {
   }
 
   depends_on = [
-    aws_api_gateway_method.proxy,
-    aws_api_gateway_integration.lambda_integration
+    aws_api_gateway_method.proxy_aws_api_gateway_method,
+    aws_api_gateway_integration.lambda_integration_write_payload_func
   ]
 }
 
@@ -80,7 +80,7 @@ resource "aws_api_gateway_integration_response" "proxy" {
 **********************************************************/
 resource "aws_api_gateway_deployment" "deployment" {
   depends_on = [
-    aws_api_gateway_integration.lambda_integration,
+    aws_api_gateway_integration.lambda_integration_write_payload_func,
   ]
 
   rest_api_id = aws_api_gateway_rest_api.cloudwatch_mock_api.id
