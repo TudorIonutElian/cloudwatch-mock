@@ -131,7 +131,7 @@ resource "aws_api_gateway_method_response" "proxy_aws_api_gateway_method_respons
   }
 }
 
-resource "aws_api_gateway_integration_response" "proxy" {
+resource "aws_api_gateway_integration_response" "proxy_2" {
   rest_api_id = aws_api_gateway_rest_api.cloudwatch_mock_api.id
   resource_id = aws_api_gateway_resource.logs_resource.id
   http_method = aws_api_gateway_method.proxy_aws_api_gateway_method_logs.http_method
