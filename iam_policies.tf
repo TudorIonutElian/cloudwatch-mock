@@ -10,6 +10,16 @@ resource "aws_lambda_permission" "apigw_lambda" {
   source_arn = "${aws_api_gateway_rest_api.cloudwatch_mock_api.execution_arn}/*/*/*"
 }
 
+resource "aws_lambda_permission" "apigw_lambda" {
+  statement_id  = "AllowExecutionFromAPIGateway"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.get_logs_func.function_name
+  principal     = "apigateway.amazonaws.com"
+
+  source_arn = "${aws_api_gateway_rest_api.cloudwatch_mock_api.execution_arn}/*/*/*"
+}
+
+
 
 /***********************************************************************
  * This resource is used to DEFINE the policy TO GET AND PUT OBJECTS
