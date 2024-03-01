@@ -4,7 +4,7 @@
 
 resource "aws_api_gateway_rest_api" "get_logs_api" {
   name        = "get-logs-api"
-  description = "Get Logs API"
+  description = "CloudWatch Demo Mock"
 
   endpoint_configuration {
     types = ["REGIONAL"]
@@ -23,10 +23,10 @@ resource "aws_api_gateway_resource" "logs" {
 /**********************************************************
 *** # Add first gateway METHOD
 **********************************************************/
-resource "aws_api_gateway_method" "proxy_logs" {
+resource "aws_api_gateway_method" "proxy_logs_method" {
   rest_api_id   = aws_api_gateway_rest_api.get_logs_api.id
   resource_id   = aws_api_gateway_resource.logs.id
-  http_method   = "GET"
+  http_method   = "POST"
   authorization = "NONE"
 }
 
@@ -35,17 +35,17 @@ resource "aws_api_gateway_method" "proxy_logs" {
 **********************************************************/
 resource "aws_api_gateway_integration" "lambda_integration_logs" {
   rest_api_id             = aws_api_gateway_rest_api.get_logs_api.id
-  resource_id             = aws_api_gateway_resource.logs.id
-  http_method             = aws_api_gateway_method.proxy_logs.http_method
-  integration_http_method = "GET"
+  resource_id             = aws_api_gateway_resource.demo.id
+  http_method             = aws_api_gateway_method.proxy_logs_method.http_method
+  integration_http_method = "POST"
   type                    = "AWS"
-  uri                     = aws_lambda_function.get_logs_func.invoke_arn
+  uri                     = aws_lambda_function.write_payload_func.invoke_arn
 }
 
 resource "aws_api_gateway_method_response" "proxy_logs" {
   rest_api_id = aws_api_gateway_rest_api.get_logs_api.id
   resource_id = aws_api_gateway_resource.logs.id
-  http_method = aws_api_gateway_method.proxy_logs.http_method
+  http_method = aws_api_gateway_method.proxy_logs_method.http_method
   status_code = "200"
 
   response_parameters = {
@@ -55,10 +55,10 @@ resource "aws_api_gateway_method_response" "proxy_logs" {
   }
 }
 
-resource "aws_api_gateway_integration_response" "proxy_logs" {
+resource "aws_api_gateway_integration_response" "proxy_response" {
   rest_api_id = aws_api_gateway_rest_api.get_logs_api.id
   resource_id = aws_api_gateway_resource.logs.id
-  http_method = aws_api_gateway_method.proxy_logs.http_method
+  http_method = aws_api_gateway_method.proxy_logs_method.http_method
   status_code = aws_api_gateway_method_response.proxy_logs.status_code
 
   response_parameters = {
@@ -68,7 +68,7 @@ resource "aws_api_gateway_integration_response" "proxy_logs" {
   }
 
   depends_on = [
-    aws_api_gateway_method.proxy_logs,
+    aws_api_gateway_method.proxy_logs_method,
     aws_api_gateway_integration.lambda_integration_logs
   ]
 }
