@@ -153,11 +153,12 @@ resource "aws_api_gateway_integration_response" "proxy_2" {
 /**********************************************************
 *** # Add lambda integration
 **********************************************************/
-resource "aws_api_gateway_deployment" "deployment_logs" {
+resource "aws_api_gateway_deployment" "deployment" {
   depends_on = [
-    aws_api_gateway_integration.lambda_integration_get_logs_func,
+    aws_api_gateway_integration.lambda_integration_write_payload_func,
+    aws_api_gateway_integration.lambda_integration_get_logs_func
   ]
 
   rest_api_id = aws_api_gateway_rest_api.cloudwatch_mock_api.id
-  stage_name  = "development-logs"
+  stage_name  = "development"
 }
