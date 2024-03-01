@@ -31,7 +31,7 @@ resource "aws_api_gateway_resource" "logs" {
 /**********************************************************
 *** # Add first gateway METHOD
 **********************************************************/
-resource "aws_api_gateway_method" "proxy_logs" {
+resource "aws_api_gateway_method" "proxy" {
   rest_api_id   = aws_api_gateway_rest_api.cloudwatch_mock_api.id
   resource_id   = aws_api_gateway_resource.demo.id
   http_method   = "POST"
@@ -67,10 +67,10 @@ resource "aws_api_gateway_integration" "lambda_integration_logs" {
   uri                     = aws_lambda_function.get_logs_func.invoke_arn
 }
 
-resource "aws_api_gateway_method_response" "proxy_logs_response" {
+resource "aws_api_gateway_method_response" "proxy" {
   rest_api_id = aws_api_gateway_rest_api.cloudwatch_mock_api.id
   resource_id = aws_api_gateway_resource.demo.id
-  http_method = aws_api_gateway_method.proxy_logs.http_method
+  http_method = aws_api_gateway_method.proxy.http_method
   status_code = "200"
 
   response_parameters = {
