@@ -101,7 +101,7 @@ resource "aws_api_gateway_integration" "lambda_integration_get_logs_func" {
   resource_id             = aws_api_gateway_resource.logs_resource.id
   http_method             = aws_api_gateway_method.proxy_aws_api_gateway_method_logs.http_method
   integration_http_method = "GET"
-  type                    = "AWS_PROXY"
+  type                    = "AWS"
   uri                     = aws_lambda_function.get_logs_func.invoke_arn
 }
 
