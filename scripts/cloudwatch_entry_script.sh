@@ -14,7 +14,7 @@ systemctl enable httpd
 ################################################
 # Go to html directory
 ################################################
-cd /var/www/html/
+cd /var/www/
 
 ################################################
 # Clone demo website
@@ -31,5 +31,14 @@ mv cloudwatch-logs-vue/* .
 ################################################
 rm -r cloudwatch-logs-vue
 
+################################################
+# Install node modules and build
+################################################
 npm install
-npm run dev
+npm run build
+
+
+################################################
+# Move dist to html
+################################################
+mv dist/* /var/www/html/
