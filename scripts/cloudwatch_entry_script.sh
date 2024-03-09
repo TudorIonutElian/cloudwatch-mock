@@ -6,6 +6,8 @@
 yum update -y
 yum install -y httpd
 yum install -y git
+yum install -y nodejs 
+yum install -y npm
 systemctl start httpd
 systemctl enable httpd
 
