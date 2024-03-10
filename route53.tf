@@ -19,14 +19,6 @@ resource "aws_acm_certificate" "learndevtech_certificate" {
 }
 
 /*****************************************************
- * Validate the certificate
- ****************************************************/
-resource "aws_acm_certificate_validation" "certificate_validation" {
-  certificate_arn         = aws_acm_certificate.learndevtech_certificate.arn
-  validation_record_fqdns = [aws_route53_record.certificate_validation.fqdn]
-}
-
-/*****************************************************
  * Create a record for the API Gateway
  ****************************************************/
 resource "aws_route53_record" "api_domain_record" {
