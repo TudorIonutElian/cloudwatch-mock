@@ -45,3 +45,11 @@ resource "aws_lb_listener" "cloudwatch_listener" {
     type             = "forward"
   }
 }
+
+####################################################
+# Add the cloudwatch_listener_certificate listener certificate resource
+####################################################
+resource "aws_lb_listener_certificate" "load_balancer_https" {
+  listener_arn    = aws_lb_listener.cloudwatch_listener.arn
+  certificate_arn = aws_acm_certificate.learndevtech_com_cert.arn
+}
