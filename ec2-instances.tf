@@ -25,7 +25,6 @@ resource "aws_instance" "cloudwatch_ec2_instances" {
   instance_type   = "t2.micro"
   key_name = aws_key_pair.kp.key_name
   user_data = file("scripts/cloudwatch_entry_script.sh")
-  count = 1
 
   tags = {
     Name = "iris_terraform_demo_ec2_instance"
