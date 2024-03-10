@@ -5,7 +5,7 @@ resource "aws_lb" "cloudwatch_lb" {
   security_groups    = ["sg-0868ea57c075e6db1"]
   subnets            = [
     "subnet-02e4231e49c79a44a", 
-    "subnet-031cbcb68fc61b81b"
+    "subnet-02a7bf0175832ccfb"
   ]
 
 }
