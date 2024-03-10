@@ -3,7 +3,10 @@ resource "aws_lb" "cloudwatch_lb" {
   internal           = false
   load_balancer_type = "application"
   security_groups    = ["sg-0868ea57c075e6db1"]
-  subnets            = ["subnet-02e4231e49c79a44a"]
+  subnets            = [
+    "subnet-02e4231e49c79a44a", 
+    "subnet-031cbcb68fc61b81b"
+  ]
 
 }
 
