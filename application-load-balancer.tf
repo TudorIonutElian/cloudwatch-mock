@@ -32,7 +32,7 @@ resource "aws_lb_target_group_attachment" "cloudwatch_target_group_attachment" {
 }
 
 resource "aws_acm_certificate" "learndevtech_com_cert" {
-  domain_name       = "*.learndevtech.com"
+  domain_name       = "cloud-watch.learndevtech.com"
   validation_method = "DNS"
 
   tags = {
