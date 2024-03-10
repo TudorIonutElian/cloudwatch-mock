@@ -23,10 +23,10 @@ resource "aws_acm_certificate" "learndevtech_certificate" {
  ****************************************************/
 resource "aws_route53_record" "certificate_validation" {
   zone_id = data.aws_route53_zone.learndevtech.zone_id
-  name    = aws_acm_certificate.learndevtech_certificate.domain_validation_options.resource_record_name
-  type    = aws_acm_certificate.learndevtech_certificate.domain_validation_options.resource_record_type
+  name    = aws_acm_certificate.learndevtech_certificate[0].domain_validation_options.resource_record_name
+  type    = aws_acm_certificate.learndevtech_certificate[0].domain_validation_options.resource_record_type
   ttl     = "300"
-  records = [aws_acm_certificate.learndevtech_certificate.domain_validation_options.resource_record_value]
+  records = [aws_acm_certificate.learndevtech_certificate[0].domain_validation_options.resource_record_value]
 }
 
 /*****************************************************
