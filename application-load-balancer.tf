@@ -32,9 +32,16 @@ resource "aws_lb_target_group_attachment" "cloudwatch_target_group_attachment" {
 }
 
 resource "aws_acm_certificate" "learndevtech_com_cert" {
-  domain_name               = "learndevtech.com"
-  subject_alternative_names = ["*.learndevtech.com"]
-  validation_method         = "DNS"
+  domain_name       = "*.learndevtech.com"
+  validation_method = "DNS"
+
+  tags = {
+    Environment = "learndevtech"
+  }
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 ####################################################
