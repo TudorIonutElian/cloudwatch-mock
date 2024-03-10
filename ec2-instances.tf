@@ -30,3 +30,16 @@ resource "aws_instance" "iris_tf_demo_ec2_instance" {
     Name = "iris_terraform_demo_ec2_instance"
   }
 }
+
+resource "aws_acm_certificate" "learndevtech_com_cert" {
+  domain_name       = "cloud-watch.learndevtech.com"
+  validation_method = "DNS"
+
+  tags = {
+    Environment = "learndevtech"
+  }
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
