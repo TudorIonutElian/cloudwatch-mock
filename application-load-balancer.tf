@@ -33,6 +33,15 @@ resource "aws_lb_target_group_attachment" "cloudwatch_target_group_attachment" {
     aws_instance.cloudwatch_ec2_instances[1].id
   ]
 }
+resource "aws_lb_target_group_attachment" "cloudwatch_target_group_attachment_0" {
+  target_group_arn = aws_lb_target_group.cloudwatch_target_group.arn
+  target_id        = aws_instance.cloudwatch_ec2_instances[0].id
+}
+
+resource "aws_lb_target_group_attachment" "cloudwatch_target_group_attachment_1" {
+  target_group_arn = aws_lb_target_group.cloudwatch_target_group.arn
+  target_id        = aws_instance.cloudwatch_ec2_instances[1].id
+}
 
 ####################################################
 # Add the cloudwatch_listener listener resource
