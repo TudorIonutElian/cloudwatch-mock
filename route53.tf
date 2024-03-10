@@ -36,7 +36,6 @@ resource "aws_route53_record" "api_domain_record" {
 
   records = ["${aws_api_gateway_rest_api.cloudwatch_mock_api.id}.execute-api.eu-central-1.amazonaws.com"]
   zone_id = data.aws_route53_zone.learndevtech.zone_id
-  depends_on = [aws_acm_certificate_validation.certificate_validation]
 }
 
 /*****************************************************
@@ -49,7 +48,6 @@ resource "aws_route53_record" "cloudwatch_domain_record" {
   type    = "A"
   ttl     = "300"
   records = [aws_instance.cloudwatch_ec2_instances.public_ip]
-  depends_on = [aws_acm_certificate_validation.certificate_validation]
 }
 
 /*****************************************************
@@ -63,5 +61,4 @@ resource "aws_route53_record" "subdomain_records" {
   ttl     = "300"
   zone_id = data.aws_route53_zone.learndevtech.zone_id
   records = [aws_instance.cloudwatch_ec2_instances.public_ip]
-  depends_on = [aws_acm_certificate_validation.certificate_validation]
 }
