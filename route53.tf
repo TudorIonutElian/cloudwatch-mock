@@ -25,8 +25,8 @@ resource "aws_route53_record" "cloudwatch_domain_record" {
   allow_overwrite = true
   zone_id = data.aws_route53_zone.learndevtech.zone_id
   name    = "cloud-watch.learndevtech.com"
-  type    = "A"
-  ttl     = "300"
+  type    = "CNAME"
+  ttl     = "60"
   records = ["${aws_lb.cloudwatch_lb.dns_name}"]
 }
 
