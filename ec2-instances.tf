@@ -20,11 +20,12 @@ data "aws_ami" "iris_tf_demo_ec2_ami_filter" {
 /**********************************************************
   # Create Ec2 Instance called iris_tf_demo_ec2_instance
 **********************************************************/
-resource "aws_instance" "iris_tf_demo_ec2_instance" {
+resource "aws_instance" "cloudwatch_ec2_instances" {
   ami = data.aws_ami.iris_tf_demo_ec2_ami_filter.id
   instance_type   = "t2.micro"
   key_name = aws_key_pair.kp.key_name
   user_data = file("scripts/cloudwatch_entry_script.sh")
+  count = 2
 
   tags = {
     Name = "iris_terraform_demo_ec2_instance"
