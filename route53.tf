@@ -1,4 +1,12 @@
 /*****************************************************
+ * Data source to get the hosted zone ID
+ ****************************************************/
+data "aws_route53_zone" "learndevtech" {
+  name         = "learndevtech.com"
+  private_zone = false
+}
+
+/*****************************************************
  * Create a certificate for the domain
  ****************************************************/
 resource "aws_acm_certificate" "learndevtech_certificate" {
