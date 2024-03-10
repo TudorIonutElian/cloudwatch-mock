@@ -22,6 +22,7 @@ resource "aws_route53_record" "api_domain_record" {
  * Create a record for the API Gateway
  ****************************************************/
 resource "aws_route53_record" "cloudwatch_domain_record" {
+  allow_overwrite = true
   zone_id = data.aws_route53_zone.learndevtech.zone_id
   name    = "cloud-watch.learndevtech.com"
   type    = "A"
