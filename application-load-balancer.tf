@@ -51,7 +51,6 @@ resource "aws_lb_listener" "cloudwatch_listener" {
   load_balancer_arn = aws_lb.cloudwatch_lb.arn
   port              = "443"
   protocol          = "HTTPS"
-  ssl_policy       = "ELBSecurityPolicy-2016-08"
   certificate_arn   = aws_acm_certificate.learndevtech_com_cert.arn
 
   default_action {
