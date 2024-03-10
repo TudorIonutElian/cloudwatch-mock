@@ -21,5 +21,13 @@ variable "custom_cloudwatch_database" {
     database_name = "cloudwatch_logs"
     port : 3306
   }
+}
 
+############################################
+# List of subdomains
+
+variable "subdomains" {
+  description = "List of subdomains"
+  type = list(string)
+  default = ["api", "cloud-watch"]
 }
