@@ -31,19 +31,6 @@ resource "aws_lb_target_group_attachment" "cloudwatch_target_group_attachment" {
   target_id        = aws_instance.iris_tf_demo_ec2_instance.id
 }
 
-resource "aws_acm_certificate" "learndevtech_com_cert" {
-  domain_name       = "cloud-watch.learndevtech.com"
-  validation_method = "DNS"
-
-  tags = {
-    Environment = "learndevtech"
-  }
-
-  lifecycle {
-    create_before_destroy = true
-  }
-}
-
 ####################################################
 # Add the cloudwatch_listener listener resource
 ####################################################
