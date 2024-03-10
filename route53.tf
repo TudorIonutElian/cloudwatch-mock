@@ -41,16 +41,3 @@ resource "aws_route53_record" "cloudwatch_domain_record" {
   ttl     = "300"
   records = [aws_instance.cloudwatch_ec2_instances.public_ip]
 }
-
-/*****************************************************
- * Create a record for each subdomain
- ****************************************************/
-resource "aws_route53_record" "subdomain_records" {
-  count = length(var.subdomains)
-
-  name    = "${var.subdomains[count.index]}.learndevtech.com"
-  type    = "A"
-  ttl     = "300"
-  zone_id = data.aws_route53_zone.learndevtech.zone_id
-  records = [aws_instance.cloudwatch_ec2_instances.public_ip]
-}
