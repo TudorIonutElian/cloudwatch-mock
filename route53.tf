@@ -10,23 +10,12 @@ data "aws_route53_zone" "learndevtech" {
  * Create a certificate for the domain
  ****************************************************/
 resource "aws_acm_certificate" "learndevtech_certificate" {
-  domain_name       = "learndevtech.com"
+  domain_name       = "cloud-watch.learndevtech.com"
   validation_method = "DNS"
 
   lifecycle {
     create_before_destroy = true
   }
-}
-
-/*****************************************************
- * Create a record for certificate validation
- ****************************************************/
-resource "aws_route53_record" "certificate_validation" {
-  zone_id = data.aws_route53_zone.learndevtech.zone_id
-  name    = aws_acm_certificate.learndevtech_certificate[0].domain_validation_options.resource_record_name
-  type    = aws_acm_certificate.learndevtech_certificate[0].domain_validation_options.resource_record_type
-  ttl     = "300"
-  records = [aws_acm_certificate.learndevtech_certificate[0].domain_validation_options.resource_record_value]
 }
 
 /*****************************************************
