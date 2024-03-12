@@ -23,4 +23,4 @@ jobs:
             cd cloudwatch-mock
             git pull
             terraform init
-            terraform plan -out=${RUN_NUMBER}.out
+            terraform plan -out=${{ github.run_number }}.out
