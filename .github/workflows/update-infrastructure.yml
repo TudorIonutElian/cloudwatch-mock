@@ -20,6 +20,7 @@ jobs:
           username: ${{ secrets.VULTR_INSTANCE_USER }}
           key: ${{ secrets.VULTR_INSTANCE_KEY }}
           script: |
-            cd cloudwatch-logs-vue/
+            cd cloudwatch-mock
             git pull
-            echo 'Running terraform plan'
+            terraform init
+            terraform plan -out=${RUN_NUMBER}.out
