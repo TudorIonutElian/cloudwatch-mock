@@ -1,4 +1,4 @@
-name: Deploy to ec2 instance
+name: Deploy infrastructure from Vultr Instance (Terraform Plan & Apply)
 
 # Trigger deployment only on push to main branch
 on:
@@ -10,6 +10,8 @@ jobs:
   build:
     name: Terraform plan
     runs-on: ubuntu-latest
+    env: 
+      RUN_NUMBER: ${{ github.run_number }}
     steps:
       - name: Login to Vultr Instance and run terraform plan
         uses: appleboy/ssh-action@master
@@ -21,5 +23,5 @@ jobs:
             cd cloudwatch-logs-vue/
             git pull
             terraform init
-            terraform plan -out=${{ ${{github.run_number}} }}.tfplan
-            cat ${{ ${{github.run_number}} }}.tfplan
+            terraform plan -out=${RUN_NUMBER}.tfplan
+            cat $RUN_NUMBER.tfplan
