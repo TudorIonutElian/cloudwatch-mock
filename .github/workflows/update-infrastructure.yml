@@ -25,14 +25,15 @@ jobs:
             terraform init
             terraform plan -out=plan-${{ github.run_number }}.out
             terraform show -json plan-${{ github.run_number }}.out > plan-${{ github.run_number }}.json
-            terraform apply -auto-approve plan-${{ github.run_number }}.out
-      - name: Add the infratag
-          uses: actions/github-script@v5
-          with:
-            script: |
-              github.rest.git.createRef({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                ref: 'refs/tags/<InfraTag_${{github.run_number}}>',
-                sha: context.sha
-              })
+            terraform apply -auto-approve plan-${{ github.run_number }}.out 
+  tag:
+    - name: Add the infratag
+      uses: actions/github-script@v5
+      with:
+        script: |
+          github.rest.git.createRef({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            ref: 'refs/tags/InfraTag_${{github.run_number}}',
+            sha: context.sha
+          })
