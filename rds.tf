@@ -10,7 +10,7 @@ resource "aws_db_instance" "custom_cloudwatch_database" {
   allocated_storage    = 10
   db_name              = "mydb"
   engine               = "mysql"
-  engine_version       = "5.6.17"
+  engine_version       = "5.7"
   instance_class       = "db.t2.micro"
   username             = var.custom_cloudwatch_database.username
   password             = var.custom_cloudwatch_database.password
