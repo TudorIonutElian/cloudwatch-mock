@@ -6,21 +6,36 @@ variable "cloudwatch_mock_lambda_bucket_name" {
   default     = "cloudwatch-mock-lambda-bucket"
 }
 
-variable "custom_cloudwatch_database" {
-  description = "Description of my variable"
-  type = object({
-    username = string
-    password = string
-    port : number,
-    database_name = string
-  })
+############################################
+# Database endpoint
+############################################
+variable "database_endpoint" {
+  description = "Value for the database endpoint"
+  type = string  
+}
 
-  default = {
-    username = "example_username"
-    password = "example_password"
-    database_name = "cloudwatch_logs"
-    port : 3306
-  }
+############################################
+# Database name
+############################################
+variable "database_username" {
+  description = "Value for the database USERNAME"
+  type = string  
+}
+
+############################################
+# Database password
+############################################
+variable "database_password" {
+  description = "Value for the database PASSWORD"
+  type = string  
+}
+
+############################################
+# Database port
+############################################
+variable "database_port" {
+  description = "Value for the database PORT"
+  type = string  
 }
 
 ############################################
