@@ -25,12 +25,15 @@ jobs:
               runners/database_exporter_variables.sh
             fi
             cp runners/database_exporter_variables_example.sh runners/database_exporter_variables.sh
-            sed -i 's|DATABASE_HOST_TO_BE_REPLACED|'"${{ secrets.DATABASE_HOST }}"'|g' runners/database_exporter_variables.sh
-            sed -i 's|DATABASE_USERNAME_TO_BE_REPLACED|'"${{ secrets.DATABASE_USERNAME }}"'|g' runners/database_exporter_variables.sh
-            sed -i 's|DATABASE_PASSWORD_TO_BE_REPLACED|'"${{ secrets.DATABASE_PASSWORD }}"'|g' runners/database_exporter_variables.sh
-            sed -i 's|DATABASE_PORT_TO_BE_REPLACED|'"${{ secrets.DATABASE_PORT }}"'|g' runners/database_exporter_variables.sh
 
-            cat runners/database_exporter_variables.sh
+            export TF_VAR_database_endpoint=${{ secrets.secrets.DATABASE_HOST }}
+            export TF_VAR_database_username=${{ secrets.DATABASE_USERNAME }}
+            export TF_VAR_database_password=${{ secrets.DATABASE_PASSWORD }}
+            export TF_VAR_database_port=${{ secrets.DATABASE_PORT }}
+            export TF_VAR_database_name=${{ secrets.DATABASE_NAME }}
+
+            echo $TF_VAR_database_endpoint
+
 
       - name: Add the infratag
         uses: actions/github-script@v7
