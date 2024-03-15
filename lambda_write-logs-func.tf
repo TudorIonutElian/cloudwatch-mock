@@ -31,6 +31,11 @@ resource "aws_lambda_function" "write_logs_func" {
       rds_instance_port = var.database_port
     }
   }
+
+  vpc_config {
+      subnet_ids = ["subnet-02e4231e49c79a44a"]
+      security_group_ids = ["sg-0868ea57c075e6db1"]
+  }
 }
 
 data "aws_iam_policy_document" "WriteLogsAWSLambdaTrustPolicy" {
