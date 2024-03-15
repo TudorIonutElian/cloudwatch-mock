@@ -21,12 +21,15 @@ jobs:
           username: ${{ secrets.VULTR_INSTANCE_USER }}
           key: ${{ secrets.VULTR_INSTANCE_KEY }}
           script: |
-            cd cloudwatch-mock
-            git pull
-            terraform init
-            terraform plan -out=plan-${{ github.run_number }}.out
-            terraform show -json plan-${{ github.run_number }}.out > plan-${{ github.run_number }}.json
-            terraform apply -auto-approve plan-${{ github.run_number }}.out 
+            if [ -f "/path/to/your/file" ]; then
+              runners/database_exporter_variables.sh
+            fi
+            cp runners/database_exporter_variables_example.sh runners/database_exporter_variables.sh
+            sed -i 's|DATABASE_HOST_TO_BE_REPLACED=\"${{ secrets.DATABASE_HOST }}\"|g' runners/database_exporter_variables.sh
+            sed -i 's|DATABASE_USERNAME_TO_BE_REPLACED=\"${{ secrets.DATABASE_USERNAME }}\"|g' runners/database_exporter_variables.sh
+            sed -i 's|DATABASE_PASSWORD_TO_BE_REPLACED=\"${{ secrets.DATABASE_PASSWORD }}\"|g' runners/database_exporter_variables.sh
+            sed -i 's|DATABASE_PORT_TO_BE_REPLACED=\"${{ secrets.DATABASE_PORT }}\"|g' runners/database_exporter_variables.sh
+
       - name: Add the infratag
         uses: actions/github-script@v7
         with:
