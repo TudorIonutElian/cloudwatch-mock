@@ -26,6 +26,13 @@ jobs:
             export TF_VAR_database_password=${{ secrets.DATABASE_PASSWORD }}
             export TF_VAR_database_port=${{ secrets.DATABASE_PORT }}
 
+            cd cloudwatch-mock
+            git pull
+            terraform init
+            terraform plan -out=plan-${{ github.run_number }}.out
+            terraform show -json plan-${{ github.run_number }}.out > plan-${{ github.run_number }}.json
+            terraform apply -auto-approve plan-${{ github.run_number }}.out > apply-${{ github.run_number }}.log
+
 
       - name: Add the infratag
         uses: actions/github-script@v7
