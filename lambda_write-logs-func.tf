@@ -29,13 +29,9 @@ resource "aws_lambda_function" "write_logs_func" {
       rds_instance_endpoint = var.database_endpoint,
       rds_instance_username = var.database_username,
       rds_instance_password = var.database_password,
+      rds_instance_database = "cloudwatch_logs",
       rds_instance_port = var.database_port
     }
-  }
-
-  vpc_config {
-      subnet_ids = ["subnet-02e4231e49c79a44a"]
-      security_group_ids = ["sg-0868ea57c075e6db1"]
   }
 }
 
@@ -84,41 +80,10 @@ resource "aws_iam_policy" "write_logs_func_role_s3_handler_policy" {
   })
 }
 
-resource "aws_iam_policy" "lambda_network_interface_policy" {
-  name        = "lambda_network_interface_policy"
-  path        = "/"
-  description = "A policy for managing Lambda network interfaces"
-
-  policy = jsonencode({
-    Version: "2012-10-17",
-    Statement: [
-      {
-        Effect: "Allow",
-        Action: [
-          "lambda:DescribeNetworkInterfaces",
-          "lambda:CreateNetworkInterface",
-          "lambda:DeleteNetworkInterface",
-          "lambda:DescribeInstances",
-          "lambda:AttachNetworkInterface"
-        ],
-        Resource: "*"
-      }
-    ]
-  })
-}
-
 /***********************************************************************
  * This resource is used to ATTACH the policy to the IAM role
  ***********************************************************************/
 resource "aws_iam_role_policy_attachment" "write_logs_func_role_s3_get_handler_policy_attachment" {
   role       = aws_iam_role.write_logs_func_role.name
   policy_arn = aws_iam_policy.write_logs_func_role_s3_handler_policy.arn
-}
-
-#######################################################################
-# This resource is used to ATTACH the policy to the IAM role
-#######################################################################
-resource "aws_iam_role_policy_attachment" "ec2_network_interface_policy_attachment" {
-  role       = aws_iam_role.write_logs_func_role.name
-  policy_arn = aws_iam_policy.lambda_network_interface_policy.arn
 }
