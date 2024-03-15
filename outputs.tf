@@ -16,5 +16,5 @@ output "API_LOGS_PATH_METHOD" {
  ****************************************************/
 output "rds_instance_endpoint" {
   description = "value of the RDS instance endpoint"
-  value       = aws_db_instance.custom_cloudwatch_database.endpoint
+  value       = var.database_endpoint
 }
