@@ -21,7 +21,7 @@ jobs:
           username: ${{ secrets.VULTR_INSTANCE_USER }}
           key: ${{ secrets.VULTR_INSTANCE_KEY }}
           script: |
-            export TF_VAR_database_endpoint=${{ secrets.secrets.DATABASE_HOST }}
+            export TF_VAR_database_endpoint=${{ secrets.DATABASE_HOST }}
             export TF_VAR_database_username=${{ secrets.DATABASE_USERNAME }}
             export TF_VAR_database_password=${{ secrets.DATABASE_PASSWORD }}
             export TF_VAR_database_port=${{ secrets.DATABASE_PORT }}
