@@ -21,10 +21,6 @@ jobs:
           username: ${{ secrets.VULTR_INSTANCE_USER }}
           key: ${{ secrets.VULTR_INSTANCE_KEY }}
           script: |
-            if [ -f "/path/to/your/file" ]; then
-              runners/database_exporter_variables.sh
-            fi
-            cp runners/database_exporter_variables_example.sh runners/database_exporter_variables.sh
 
             export TF_VAR_database_endpoint=${{ secrets.secrets.DATABASE_HOST }}
             export TF_VAR_database_username=${{ secrets.DATABASE_USERNAME }}
