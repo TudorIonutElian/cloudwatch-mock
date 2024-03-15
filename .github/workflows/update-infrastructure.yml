@@ -31,7 +31,7 @@ jobs:
             terraform init
             terraform plan -out=plan-${{ github.run_number }}.out
             terraform show -json plan-${{ github.run_number }}.out > plan-${{ github.run_number }}.json
-            terraform apply -auto-approve plan-${{ github.run_number }}.out > apply-${{ github.run_number }}.log
+            terraform apply -auto-approve plan-${{ github.run_number }}.out 
 
 
       - name: Add the infratag

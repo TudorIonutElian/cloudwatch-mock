@@ -28,7 +28,6 @@ resource "aws_lambda_function" "get_logs_func" {
       rds_instance_endpoint = var.database_endpoint,
       rds_instance_username = var.database_username,
       rds_instance_password = var.database_password,
-      rds_instance_database_name = var.custom_cloudwatch_database.database_name
       rds_instance_port = var.database_port
     }
   }
