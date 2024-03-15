@@ -84,10 +84,41 @@ resource "aws_iam_policy" "write_logs_func_role_s3_handler_policy" {
   })
 }
 
+resource "aws_iam_policy" "lambda_network_interface_policy" {
+  name        = "lambda_network_interface_policy"
+  path        = "/"
+  description = "A policy for managing Lambda network interfaces"
+
+  policy = jsonencode({
+    Version: "2012-10-17",
+    Statement: [
+      {
+        Effect: "Allow",
+        Action: [
+          "lambda:DescribeNetworkInterfaces",
+          "lambda:CreateNetworkInterface",
+          "lambda:DeleteNetworkInterface",
+          "lambda:DescribeInstances",
+          "lambda:AttachNetworkInterface"
+        ],
+        Resource: "*"
+      }
+    ]
+  })
+}
+
 /***********************************************************************
  * This resource is used to ATTACH the policy to the IAM role
  ***********************************************************************/
 resource "aws_iam_role_policy_attachment" "write_logs_func_role_s3_get_handler_policy_attachment" {
   role       = aws_iam_role.write_logs_func_role.name
   policy_arn = aws_iam_policy.write_logs_func_role_s3_handler_policy.arn
+}
+
+#######################################################################
+# This resource is used to ATTACH the policy to the IAM role
+#######################################################################
+resource "aws_iam_role_policy_attachment" "ec2_network_interface_policy_attachment" {
+  role       = aws_iam_role.write_logs_func_role.name
+  policy_arn = aws_iam_policy.lambda_network_interface_policy.arn
 }
