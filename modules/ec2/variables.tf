@@ -25,3 +25,8 @@ variable "instance_type" {
   type        = string
   default     = "t2.micro"
 }
+
+variable "ami_id" {
+  description = "The AMI ID"
+  type        = string
+}
