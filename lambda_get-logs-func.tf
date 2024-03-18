@@ -3,6 +3,13 @@ module "get_logs_func_iam" {
   lambda_function_iam_role_name = "get-logs-func-role"
 }
 
+module "get_logs_data_archive" {
+  source = "./modules/data-archive"
+  type = "zip"
+  source_dir = "get-logs-func"
+  output_path = "get_logs_func"
+}
+
 
 /**
  * This file is used to create a lambda function and attach the role to it.
@@ -27,7 +34,7 @@ resource "aws_lambda_function" "get_logs_func" {
   role             = module.get_logs_func_iam.lambda_function_iam_role.arn
   handler          = "index.handler"
   runtime          = "nodejs18.x"
-  source_code_hash = data.archive_file.get_logs_func_zip.output_base64sha256
+  source_code_hash = module.get_logs_data_archive.lambda_output_path.output_base64sha256
 
   environment {
     variables = {
