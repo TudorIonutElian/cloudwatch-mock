@@ -1,4 +1,4 @@
-module "get_write_func_iam" {
+module "write_logs_func_iam" {
   source = "./modules/iam"
   lambda_function_iam_role_name = "write-logs-func-role"
 }
@@ -24,7 +24,7 @@ data "archive_file" "write_logs_func_zip" {
 resource "aws_lambda_function" "write_logs_func" {
   filename         = "write_logs_func.zip"
   function_name    = "write-logs-func"
-  role             = module.get_write_func_iam.lambda_function_iam_role.arn
+  role             = module.write_logs_func_iam.lambda_function_iam_role.arn
   handler          = "index.handler"
   runtime          = "nodejs18.x"
   source_code_hash = data.archive_file.write_logs_func_zip.output_base64sha256
@@ -67,6 +67,6 @@ resource "aws_iam_policy" "write_logs_func_role_s3_handler_policy" {
  * This resource is used to ATTACH the policy to the IAM role
  ***********************************************************************/
 resource "aws_iam_role_policy_attachment" "write_logs_func_role_s3_get_handler_policy_attachment" {
-  role       = aws_iam_role.write_logs_func_role.name
+  role       = module.write_logs_func_iam.lambda_function_iam_role.name
   policy_arn = aws_iam_policy.write_logs_func_role_s3_handler_policy.arn
 }
