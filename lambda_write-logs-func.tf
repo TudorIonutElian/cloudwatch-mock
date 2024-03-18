@@ -1,3 +1,9 @@
+module "get_write_func_iam" {
+  source = "./modules/iam"
+  lambda_function_iam_role_name = "write-logs-func-role"
+}
+
+
 /**
  * This file is used to create a lambda function and attach the role to it.
  * The lambda function is created using the zip file of the lambda function code.
@@ -18,7 +24,7 @@ data "archive_file" "write_logs_func_zip" {
 resource "aws_lambda_function" "write_logs_func" {
   filename         = "write_logs_func.zip"
   function_name    = "write-logs-func"
-  role             = aws_iam_role.write_logs_func_role.arn
+  role             = module.get_write_func_iam.lambda_function_iam_role.arn
   handler          = "index.handler"
   runtime          = "nodejs18.x"
   source_code_hash = data.archive_file.write_logs_func_zip.output_base64sha256
@@ -31,27 +37,6 @@ resource "aws_lambda_function" "write_logs_func" {
       rds_instance_database_name = var.custom_cloudwatch_database.database_name
     }
   }
-}
-
-data "aws_iam_policy_document" "WriteLogsAWSLambdaTrustPolicy" {
-  statement {
-    actions    = ["sts:AssumeRole"]
-    effect     = "Allow"
-    principals {
-      type        = "Service"
-      identifiers = ["lambda.amazonaws.com"]
-    }
-  }
-}
-
-resource "aws_iam_role" "write_logs_func_role" {
-  name               = "write-logs-func-role"
-  assume_role_policy = "${data.aws_iam_policy_document.WriteLogsAWSLambdaTrustPolicy.json}"
-}
-
-resource "aws_iam_role_policy_attachment" "write_logs_terraform_lambda_policy" {
-  role       = "${aws_iam_role.write_logs_func_role.name}"
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 }
 
 /***********************************************************************
