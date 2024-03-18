@@ -2,7 +2,7 @@
   # Added data source to filter the ami called iris_tf_demo_ec2_ami_filter
 **********************************************************/
 
-data "aws_ami" "iris_tf_demo_ec2_ami_filter" {
+data "aws_ami" "ec2_ami_filter" {
   owners = ["amazon"]
   most_recent = true
 
@@ -21,22 +21,22 @@ data "aws_ami" "iris_tf_demo_ec2_ami_filter" {
   # Create Ec2 Instance called iris_tf_demo_ec2_instance
 **********************************************************/
 resource "aws_instance" "cloudwatch_ec2_instances" {
-  ami = data.aws_ami.iris_tf_demo_ec2_ami_filter.id
-  instance_type   = "t2.micro"
-  key_name = aws_key_pair.kp.key_name
+  ami = data.aws_ami.ec2_ami_filter.id
+  instance_type   = var.instance_type
+  key_name = var.key_name
   user_data = file("scripts/cloudwatch_entry_script.sh")
 
   tags = {
-    Name = "iris_terraform_demo_ec2_instance"
+    Name = "ec2-cloudwatch-instance"
   }
 }
 
 resource "aws_acm_certificate" "learndevtech_com_cert" {
-  domain_name       = "cloud-watch.learndevtech.com"
+  domain_name       = "${var.domain_name}"
   validation_method = "DNS"
 
   tags = {
-    Environment = "learndevtech"
+    Environment = "${var.environment}"
   }
 
   lifecycle {

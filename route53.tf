@@ -39,5 +39,5 @@ resource "aws_route53_record" "cloudwatch_domain_record" {
   name    = "cloud-watch.learndevtech.com"
   type    = "A"
   ttl     = "300"
-  records = [aws_instance.cloudwatch_ec2_instances.public_ip]
+  records = [module.cloudwatch_ec2.public_ip]
 }
