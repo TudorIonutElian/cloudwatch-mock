@@ -1,3 +1,7 @@
+############################################
+# Terraform module to create EC2 instances #
+############################################
+
 module "cloudwatch_ec2" {
   source        = "./modules/ec2"
   instance_type = "t2.micro"

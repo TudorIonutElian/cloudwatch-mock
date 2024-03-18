@@ -1,6 +1,6 @@
 module "ami_filter" {
   source = "./modules/ami-filter"
-  startsWith = "amzn2"
+  startsWith = "al2023-ami"
   endsWith = "x86_64"
   architecture = "x86_64"
 }
