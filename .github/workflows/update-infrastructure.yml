@@ -1,5 +1,4 @@
-name: Deploy infrastructure from Vultr Instance (Terraform Plan & Apply)
-
+name: Deploy infrastructure
 # Trigger deployment only on push to main branch
 on:
   push:
