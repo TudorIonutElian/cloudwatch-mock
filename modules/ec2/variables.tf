@@ -30,3 +30,9 @@ variable "ami_id" {
   description = "The AMI ID"
   type        = string
 }
+
+variable "numberOfInstances" {
+  description = "The number of EC2 instances to create"
+  type        = number
+  default     = 1
+}

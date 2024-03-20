@@ -8,4 +8,5 @@ module "cloudwatch_ec2" {
   key_name      = module.aws_key_pair.key_pair_name
   domain_name   = "learndevtech.com"
   ami_id        = module.ami_filter.ami_id
+  count         = 3
 }
