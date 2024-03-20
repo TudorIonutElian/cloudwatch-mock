@@ -7,7 +7,6 @@ resource "aws_instance" "cloudwatch_ec2_instances" {
   instance_type = var.instance_type
   key_name      = var.key_name
   user_data     = file("scripts/cloudwatch_entry_script.sh")
-  count         = var.numberOfInstances
 
   tags = {
     Name = "ec2-cloudwatch-instance"

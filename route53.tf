@@ -39,7 +39,7 @@ resource "aws_route53_record" "cloudwatch_domain_record_development" {
   name    = "development.cloud-watch.learndevtech.com"
   type    = "A"
   ttl     = "300"
-  records = [module.cloudwatch_ec2[0].public_ip]
+  records = [module.cloudwatch_ec2_development.public_ip]
 }
 
 /*****************************************************
@@ -51,7 +51,7 @@ resource "aws_route53_record" "cloudwatch_domain_record_testing" {
   name    = "testing.cloud-watch.learndevtech.com"
   type    = "A"
   ttl     = "300"
-  records = [module.cloudwatch_ec2[1].public_ip]
+  records = [module.cloudwatch_ec2_testing.public_ip]
 }
 
 /*****************************************************
@@ -63,5 +63,5 @@ resource "aws_route53_record" "cloudwatch_domain_record_staging" {
   name    = "staging.cloud-watch.learndevtech.com"
   type    = "A"
   ttl     = "300"
-  records = [module.cloudwatch_ec2[2].public_ip]
+  records = [module.cloudwatch_ec2_staging.public_ip]
 }
