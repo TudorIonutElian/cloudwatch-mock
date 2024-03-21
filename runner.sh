@@ -17,4 +17,3 @@ loadGetLogsLambda
 
 # Call the terraform_init function
 terraform_init
-

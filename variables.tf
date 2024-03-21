@@ -31,3 +31,41 @@ variable "subdomains" {
   type = list(string)
   default = ["api", "cloud-watch"]
 }
+
+variable "lambdas_config" {
+  description = "List of lambda functions"
+  type = list(
+    object(
+      {
+        name = string
+        description = string
+        runtime = string
+        handler = string
+        filename = string
+      }
+    )
+  )
+  default = [
+    {
+      name = "write-payload-func"
+      description = "Lambda function to write the payload to the S3 bucket"
+      runtime = "nodejs18.x"
+      handler = "index.handler"
+      filename = "write_payload_func.zip"
+    },
+    {
+      name = "write-logs-func"
+      description = "Lambda function to write the logs to the RDS instance"
+      runtime = "nodejs18.x"
+      handler = "index.handler"
+      filename = "write_logs_func.zip"
+    },
+    {
+      name = "get-logs-func"
+      description = "Lambda function to get the logs from the RDS instance"
+      runtime = "nodejs18.x"
+      handler = "index.handler"
+      filename = "get_logs_func.zip"
+    }
+  ]
+}

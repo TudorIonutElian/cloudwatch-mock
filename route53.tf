@@ -33,11 +33,47 @@ resource "aws_route53_record" "api_domain_record" {
 /*****************************************************
  * Create a record for the API Gateway
  ****************************************************/
-resource "aws_route53_record" "cloudwatch_domain_record" {
+resource "aws_route53_record" "cloudwatch_domain_record_development" {
   allow_overwrite = true
   zone_id = data.aws_route53_zone.learndevtech.zone_id
-  name    = "cloud-watch.learndevtech.com"
+  name    = "development.cloud-watch.learndevtech.com"
   type    = "A"
   ttl     = "300"
-  records = [aws_instance.cloudwatch_ec2_instances.public_ip]
+  records = [module.cloudwatch_ec2_development.public_ip]
+}
+
+/*****************************************************
+ * Create a record for the API Gateway
+ ****************************************************/
+resource "aws_route53_record" "cloudwatch_domain_record_testing" {
+  allow_overwrite = true
+  zone_id = data.aws_route53_zone.learndevtech.zone_id
+  name    = "testing.cloud-watch.learndevtech.com"
+  type    = "A"
+  ttl     = "300"
+  records = [module.cloudwatch_ec2_testing.public_ip]
+}
+
+/*****************************************************
+ * Create a record for the API Gateway
+ ****************************************************/
+resource "aws_route53_record" "cloudwatch_domain_record_staging" {
+  allow_overwrite = true
+  zone_id = data.aws_route53_zone.learndevtech.zone_id
+  name    = "staging.cloud-watch.learndevtech.com"
+  type    = "A"
+  ttl     = "300"
+  records = [module.cloudwatch_ec2_staging.public_ip]
+}
+
+/*****************************************************
+ * Create a record for the API Gateway
+ ****************************************************/
+resource "aws_route53_record" "cloudwatch_domain_record_production" {
+  allow_overwrite = true
+  zone_id = data.aws_route53_zone.learndevtech.zone_id
+  name    = "production.cloud-watch.learndevtech.com"
+  type    = "A"
+  ttl     = "300"
+  records = [module.cloudwatch_ec2_production.public_ip]
 }
