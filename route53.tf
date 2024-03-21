@@ -65,3 +65,15 @@ resource "aws_route53_record" "cloudwatch_domain_record_staging" {
   ttl     = "300"
   records = [module.cloudwatch_ec2_staging.public_ip]
 }
+
+/*****************************************************
+ * Create a record for the API Gateway
+ ****************************************************/
+resource "aws_route53_record" "cloudwatch_domain_record_production" {
+  allow_overwrite = true
+  zone_id = data.aws_route53_zone.learndevtech.zone_id
+  name    = "production.cloud-watch.learndevtech.com"
+  type    = "A"
+  ttl     = "300"
+  records = [module.cloudwatch_ec2_production.public_ip]
+}
